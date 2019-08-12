@@ -52,10 +52,10 @@ spec:
         ports:
         #- name: metrics
         #  containerPort: 9091
-        #  protocol: TCP
+        - name: http
+          containerPort: 8080
         - name: remoting
           containerPort: 2552
-          protocol: TCP
         - name: management
           containerPort: 8558
         readinessProbe:
@@ -84,10 +84,13 @@ metadata:
     "prometheus.io/path": "/metrics"
     "prometheus.io/port": "9091"
 spec:
+  type: NodePort
   selector:
     app: akka-cluster-example
   ports:
-    - name: metrics
-      protocol: TCP
-      port: 9091
-      targetPort: 9091 
+  - name: http
+    port: 8080
+    targetPort: 8080
+  - name: metrics
+    port: 9091
+    targetPort: 9091 
