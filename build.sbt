@@ -4,9 +4,18 @@ version := "0.1.0"
 
 enablePlugins(JavaAppPackaging)
 dockerBaseImage := "adoptopenjdk/openjdk8"
-dockerExposedPorts ++= Seq(2552, 8080, 8558)
+dockerExposedPorts ++= Seq(2552, 8080, 8558, 9091)
 
-libraryDependencies ++= Vector(
+enablePlugins(Cinnamon)
+
+lazy val cinnamonDependencies = Seq(
+  Cinnamon.library.cinnamonAkka,
+  Cinnamon.library.cinnamonAkkaHttp,
+  Cinnamon.library.cinnamonPrometheus,
+  Cinnamon.library.cinnamonPrometheusHttpServer,
+)
+
+libraryDependencies ++= cinnamonDependencies ++ Vector(
   "com.typesafe.akka" %% "akka-actor"   % "2.5.23",
   "com.typesafe.akka" %% "akka-cluster" % "2.5.23",
   "com.typesafe.akka" %% "akka-http"    % "10.1.3",

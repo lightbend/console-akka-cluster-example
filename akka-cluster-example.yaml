@@ -50,8 +50,8 @@ spec:
               apiVersion: v1
               fieldPath: "metadata.labels['app']"
         ports:
-        #- name: metrics
-        #  containerPort: 9091
+        - name: metrics
+          containerPort: 9091
         - name: http
           containerPort: 8080
         - name: remoting
