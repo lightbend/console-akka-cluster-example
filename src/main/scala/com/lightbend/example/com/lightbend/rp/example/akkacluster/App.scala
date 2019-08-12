@@ -1,6 +1,8 @@
 package com.lightbend.example.com.lightbend.rp.example.akkacluster
 
 import akka.actor.{ActorSystem, Props}
+import akka.management.scaladsl.AkkaManagement
+import akka.management.cluster.bootstrap.ClusterBootstrap
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.pattern.ask
@@ -13,6 +15,9 @@ import SimpleClusterListener._
 object App {
   def main(args: Array[String]) {
     implicit val system = ActorSystem("my-system")
+    AkkaManagement(system).start()
+    ClusterBootstrap(system).start()
+
     implicit val materializer = ActorMaterializer()
     implicit val executionContext = system.dispatcher
     implicit val timeout = Timeout(1.second)
