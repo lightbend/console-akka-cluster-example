@@ -1,6 +1,9 @@
-name := "akka-cluster-orchestration-example"
+name := "akka-cluster-example"
 
 version := "0.1.0"
+
+enablePlugins(JavaAppPackaging)
+dockerExposedPorts ++= Seq(8080, 2552)
 
 libraryDependencies ++= Vector(
   "com.typesafe.akka" %% "akka-actor"   % "2.5.23",
