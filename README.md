@@ -42,4 +42,4 @@ docker images
 
 ### Deploy project
 
-**TODO**
+Follow instructions in [Lightbend Console](https://developer.lightbend.com/docs/console/current/tutorial/index.html) docs.
