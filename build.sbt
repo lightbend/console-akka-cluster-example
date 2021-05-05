@@ -1,28 +1,32 @@
-name := "akka-cluster-example"
-
-version := "0.1.0"
-
-enablePlugins(JavaAppPackaging)
-dockerBaseImage := "adoptopenjdk/openjdk8"
-dockerExposedPorts ++= Seq(2552, 8080, 8558, 9091)
-
-enablePlugins(Cinnamon)
-
-lazy val cinnamonDependencies = Seq(
-  Cinnamon.library.cinnamonAkka,
-  Cinnamon.library.cinnamonAkkaHttp,
-  Cinnamon.library.cinnamonPrometheus,
-  Cinnamon.library.cinnamonPrometheusHttpServer,
+ThisBuild / scalaVersion := "2.13.5"
+ThisBuild / version := "0.1.0"
+ThisBuild / scalacOptions ++= Seq(
+  "-target:8",
+  "-deprecation",
+  "-feature",
+  "-unchecked",
+  "-Xlog-reflective-calls",
+  "-Xlint"
 )
 
-libraryDependencies ++= cinnamonDependencies ++ Vector(
-  "com.typesafe.akka" %% "akka-actor"   % "2.5.23",
-  "com.typesafe.akka" %% "akka-cluster" % "2.5.23",
-  "com.typesafe.akka" %% "akka-http"    % "10.1.3",
-  "com.typesafe.akka" %% "akka-stream"  % "2.5.23",
-  "com.typesafe.akka" %% "akka-discovery" % "2.5.23",
-  "com.lightbend.akka.management" %% "akka-management" % "1.0.2",
-  "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % "1.0.2",
-  "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % "1.0.2")
+name := "akka-cluster-example"
 
-mainClass in Compile := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
+val AkkaVersion = "2.6.14"
+val AkkaHttpVersion = "10.2.4"
+
+libraryDependencies ++= Seq(
+  // Akka HTTP dependencies
+  "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion,
+  // Akka Dependencies
+  "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-actor"   % AkkaVersion,
+  "com.typesafe.akka" %% "akka-cluster" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-stream"  % AkkaVersion,
+  "com.typesafe.akka" %% "akka-discovery" % AkkaVersion,
+  // Logback
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+
+)
+
+Compile / mainClass := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
