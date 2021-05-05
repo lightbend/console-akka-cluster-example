@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.cluster.Cluster
 
 object Job {
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
     val system = ActorSystem("my-system")
     val cluster = Cluster(system)
 
