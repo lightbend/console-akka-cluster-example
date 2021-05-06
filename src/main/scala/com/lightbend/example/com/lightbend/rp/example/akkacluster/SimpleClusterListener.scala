@@ -2,7 +2,7 @@ package com.lightbend.example.com.lightbend.rp.example.akkacluster
 
 import akka.actor._
 import akka.cluster._
-import ClusterEvent._
+import akka.cluster.ClusterEvent._
 
 object SimpleClusterListener {
   case object GetMembers
@@ -33,18 +33,17 @@ class SimpleClusterListener extends Actor with ActorLogging {
       sender() ! MemberList(members)
 
     case MemberUp(member) =>
-      log.info("Member is Up: {}", member.address)
-
+      log.info(s"Member is Up: ${member.address}")
       members = member.address.toString :: members
 
     case UnreachableMember(member) =>
-      log.info("Member detected as unreachable: {}", member)
+      log.info(s"Member detected as unreachable: ${member}")
 
     case MemberRemoved(member, previousStatus) =>
-      log.info("Member is Removed: {} after {}", member.address, previousStatus)
-
+      log.info(s"Member is Removed: ${member.address} after ${previousStatus}")
       members = members.filterNot(_ == member.address.toString)
 
-    case _: MemberEvent =>
+    case event: MemberEvent =>
+      log.info(s"New event for Cluster: ${event}")
   }
 }

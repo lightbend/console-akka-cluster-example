@@ -4,16 +4,14 @@ import akka.actor.{ActorSystem, Props}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.pattern.ask
-import akka.stream.ActorMaterializer
 import akka.util.Timeout
 import scala.concurrent.duration._
 
 import SimpleClusterListener._
 
 object App {
-  def main(args: Array[String]) {
-    implicit val system = ActorSystem("my-system")
-    implicit val materializer = ActorMaterializer()
+  def main(args: Array[String]): Unit = {
+    implicit val system = ActorSystem("akka-cluster-example")
     implicit val executionContext = system.dispatcher
     implicit val timeout = Timeout(1.second)
 
@@ -41,7 +39,7 @@ object App {
 
     println(s"HTTP server available at http://$host:$port")
 
-    Http().bindAndHandle(route, host, port)
+    Http().newServerAt(host, port).bindFlow(route)
   }
 
   private def template(members: MemberList): String =
