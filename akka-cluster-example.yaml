@@ -26,6 +26,7 @@ metadata:
   name: akka-cluster-example
   labels:
     app: akka-cluster-example
+    prometheus.io/scrape: "true"
 spec:
   replicas: 3
   selector:
@@ -45,7 +46,7 @@ spec:
     spec:
       containers:
       - name: akka-cluster-example
-        image: akka-cluster-example:0.1.5
+        image: akka-cluster-example:0.1.0
         livenessProbe:
           httpGet:
             path: "/alive"
@@ -79,6 +80,9 @@ metadata:
   name: akka-cluster-example-svc
   annotations:
     "prometheus.io/scrape": "true"
+    "prometheus.io/scheme": http
+    "prometheus.io/path": "/metrics"
+    "prometheus.io/port": "9091"
 spec:
   type: NodePort
   selector:

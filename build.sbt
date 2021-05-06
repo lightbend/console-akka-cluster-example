@@ -13,6 +13,7 @@ name := "akka-cluster-example"
 
 val AkkaVersion = "2.6.14"
 val AkkaHttpVersion = "10.2.4"
+val AkkaManagementVersion = "1.0.10"
 
 libraryDependencies ++= Seq(
   // Akka HTTP dependencies
@@ -27,6 +28,29 @@ libraryDependencies ++= Seq(
   // Logback
   "ch.qos.logback" % "logback-classic" % "1.2.3",
 
+  // Akka Management dependencies
+  "com.lightbend.akka.management" %% "akka-management" % AkkaManagementVersion,
+  "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
+  "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % AkkaManagementVersion
 )
 
 Compile / mainClass := Some("com.lightbend.example.com.lightbend.rp.example.akkacluster.App")
+
+enablePlugins(JavaAppPackaging)
+dockerBaseImage := "docker.io/library/adoptopenjdk:11-jre-hotspot"
+dockerExposedPorts ++= Seq(2551, 8080, 8558)
+
+// ----------------------------
+// Lightbend Telemetry settings
+// ----------------------------
+enablePlugins(Cinnamon)
+
+// metrics port
+dockerExposedPorts += 9091
+
+libraryDependencies ++= Seq(
+  Cinnamon.library.cinnamonAkka,
+  Cinnamon.library.cinnamonAkkaHttp,
+  Cinnamon.library.cinnamonPrometheus,
+  Cinnamon.library.cinnamonPrometheusHttpServer,
+)

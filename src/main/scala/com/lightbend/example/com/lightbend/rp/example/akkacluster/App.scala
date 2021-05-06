@@ -7,6 +7,9 @@ import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
 
+import akka.management.scaladsl.AkkaManagement
+import akka.management.cluster.bootstrap.ClusterBootstrap
+
 import SimpleClusterListener._
 
 object App {
@@ -38,6 +41,9 @@ object App {
     val port = 8080
 
     println(s"HTTP server available at http://$host:$port")
+
+    AkkaManagement(system).start()
+    ClusterBootstrap(system).start()
 
     Http().newServerAt(host, port).bindFlow(route)
   }
