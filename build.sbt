@@ -49,8 +49,10 @@ enablePlugins(Cinnamon)
 dockerExposedPorts += 9091
 
 libraryDependencies ++= Seq(
+  Cinnamon.library.cinnamonCHMetrics,
   Cinnamon.library.cinnamonAkka,
   Cinnamon.library.cinnamonAkkaHttp,
+  Cinnamon.library.cinnamonJvmMetricsProducer,
   Cinnamon.library.cinnamonPrometheus,
   Cinnamon.library.cinnamonPrometheusHttpServer,
 )
