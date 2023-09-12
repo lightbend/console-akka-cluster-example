@@ -1,3 +1,7 @@
+# Archived 2023-09-12
+
+See [lightbend/akka-meta #245](https://github.com/lightbend/akka-meta/issues/245)
+
 # Lightbend Console Akka Cluster Example
 
 This project is an example for [Lightbend Console](https://developer.lightbend.com/docs/console/current/index.html) integration in an existing app.
