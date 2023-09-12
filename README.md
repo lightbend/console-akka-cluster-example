@@ -1,4 +1,7 @@
 # This product is EOL in favor of using grafana or another monitoring utility directly
+# Archived 2023-09-12
+
+See [lightbend/akka-meta #245](https://github.com/lightbend/akka-meta/issues/245)
 
 # Lightbend Console Akka Cluster Example
 
