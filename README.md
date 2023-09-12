@@ -1,3 +1,5 @@
+# This product is EOL in favor of using grafana or another monitoring utility directly
+
 # Lightbend Console Akka Cluster Example
 
 This project is an example for [Lightbend Console](https://developer.lightbend.com/docs/console/current/index.html) integration in an existing app.
